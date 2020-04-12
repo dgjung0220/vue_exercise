@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>끝말잇기</title>
+</head>
+
+<body>
+    <div id = "root">
+        <!-- <div> {{ word }}</div>
+        <form v-on:submit="onSubmitForm">
+            <input type="text" v-model="value" ref = "answer">
+            <button type="submit"> Go </button>
+        </form>
+        <div> {{ result }}</div> -->
+
+        <word-relay start-word='정동구'></word-relay>
+        <word-relay start-word='정동팔'></word-relay>
+        <word-relay start-word='정동칠'></word-relay>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>  <!-- 최신 버전 unpkg cdn -->
+</body>
+
+<script>
+    Vue.component('word-relay', {           // 전역 컴포넌트
+        template: `
+            <div>
+                <div> {{ word }} </div>
+                <form v-on:submit="onSubmitForm">
+                    <input type="text" v-model="value" ref = "answer">
+                    <button type="submit"> Go </button>
+                </form>
+                <div> {{ result }}</div>
+            </div>
+        `,
+        props: ['startWord'],
+        data() {
+            return {
+                word : this.startWord, 
+                result : '',
+                value : ''
+            }
+        },
+        methods: {
+            onSubmitForm(e) {
+                e.preventDefault()
+
+                if (this.value.length === 3) {                                      // 3 - 3 끝말있기
+                    if (this.word[this.word.length - 1] === this.value[0]) {
+                    this.result = 'Correct ! '
+                    this.word = this.value
+                    this.value = ''
+
+                    this.$refs.answer.focus()
+                    } else {
+                        this.result = 'Incorrect ! '
+                        this.value = ''
+                        this.$refs.answer.focus()
+                    }
+                } else {
+                    this.result = 'Incrrect ! '
+                    this.value = ''
+                    this.$refs.answer.focus()
+                }
+                
+            }
+        }
+    })
+</script>
+
+<script>
+    const app = new Vue({
+        el: '#root',
+    })
+</script>
+
+</html>

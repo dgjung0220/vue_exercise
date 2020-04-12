@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widht=device-width">
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <div id="root">
+        <h1>Hello </h1>
+
+        <div v-if="liked">Clicked Like button</div>
+        <button v-else v-on:click="onClickButton"> like </button>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>  <!-- 최신 버전 unpkg cdn -->
+</body>
+
+<script>
+    const app = new Vue({
+        el: '#root',
+        data : {
+            liked : false,
+        },
+        methods : {
+            onClickButton() {
+                this.liked =  true
+            }
+        }
+    })
+
+</script>
+</html>

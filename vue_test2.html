@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widht=device-width">
+    <title>구구단</title>
+</head>
+
+<body>
+    <div id="root">
+        <div> {{parm1}} x {{parm2}}= ?</div>
+        <form v-on:submit="onSubmitForm">
+            <input type="number" ref="answer" v-model="value">
+            <button type="submit"> Go </button>
+        </form>
+
+        <div id = "result"> {{ result }}</div>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>  <!-- 최신 버전 unpkg cdn -->
+</body>
+
+<script>
+    const app = new Vue({
+        el: '#root',
+        data : {
+            parm1 : Math.ceil(Math.random() * 9),
+            parm2 : Math.ceil(Math.random() * 9),
+            value : '',
+            result : ''
+        },
+        methods : {
+            onSubmitForm(e) {
+                e.preventDefault()      // 새로고침 막기
+                console.log(this.parm1 * this.parm2)
+                console.log(this.value)
+                if (this.parm1 * this.parm2 === parseInt(this.value)) {
+                    this.result = 'Correct!'
+                    
+                    this.parm1 = Math.ceil(Math.random() * 9)
+                    this.parm2 = Math.ceil(Math.random() * 9)
+                    this.value = ''
+                    this.$refs.answer.focus()
+                    
+                } else {
+                    this.result = 'Incorrect T.T'
+                    this.value = ''
+                    this.$refs.answer.focus()
+                }
+            }
+        }
+    })
+
+</script>
+</html>
